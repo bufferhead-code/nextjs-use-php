@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "help": "next build -h",
-    "build": "ts-node preBuild.ts && next build && ts-node postBuild.ts",
+    "build": "ts-node build.ts",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "child_process": "^1.0.2",
     "fs-extra": "^11.1.1",
     "next": "14.0.0",
     "react": "^18",
