@@ -44,7 +44,8 @@ function build() {
 
     copyCurrentDirectoryToDist();
     try {
-        cp.spawnSync('next', ['build']);
+        const output = cp.spawnSync('next', ['build']);
+        console.log(output.stdout.toString());
     }
     catch(e){
         console.log(e);
