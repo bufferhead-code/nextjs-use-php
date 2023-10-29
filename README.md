@@ -25,7 +25,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Roadmap (Things that should be fixed but realistically it will never happen)
 
-* There is a probably a way to fix that nasty preprocess step with [SWC Plugins]( https://swc.rs/docs/plugin/ecmascript/getting-started) which are still in Beta with Nuxt.js and also I think they will switch builder anyways soon so what's the point really?
+* There is a probably a way to fix that nasty preprocess step with [SWC Plugins]( https://swc.rs/docs/plugin/ecmascript/getting-started) which are still in Beta with Next.js and also I think they will switch builder anyways soon so what's the point really?
 
 ## Credits
 
