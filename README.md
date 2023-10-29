@@ -27,6 +27,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 * There is a probably a way to fix that nasty preprocess step with [SWC Plugins]( https://swc.rs/docs/plugin/ecmascript/getting-started) which are still in Beta with Nuxt.js and also I think they will switch builder anyways soon so what's the point really?
 
+## Credits
+
 Check out the original implementations by elnardu for C and Rust:
 
 * https://github.com/elnardu/react-use-c
