@@ -15,27 +15,13 @@ function copyCurrentDirectoryToDist(filePath: string) {
     for (let i = 1; i < splits.length; i++) {
         const endOfPhpCode = findClosingBrace(splits[i]);
         const phpCode = splits[i].slice(0, endOfPhpCode);
-        if (isServerActionFile) {
-            result += `'use server'\n`;
+        if (!isServerActionFile) {
+            result += `"use server";\n`;
         }
         result += `return require('child_process').spawnSync('php', ['-r', \`${phpCode}\`]).stdout.toString()`
         result += splits[i].slice(endOfPhpCode, splits[i].length);
     }
     fse.writeFileSync(filePath, result, "utf8")
-// }
-// else{
-//     const splits = content.split(/'use php'/);
-//     let result = splits[0];
-//     console.log(result);
-//     for (let i = 1; i < splits.length; i++) {
-//         const endOfPhpCode = findClosingBrace(splits[i]);
-//         const cCode = splits[i].slice(0, endOfPhpCode);
-//         result += `return (await (await fetch("/api/use-php", {method: "POST", body: ${JSON.stringify(cCode)}})).json()).message;`;
-//         result += splits[i].slice(endOfPhpCode, splits[i].length);
-//     }
-//     fse.writeFileSync(filePath, result, "utf8")
-// }
-
 }
 
 function findClosingBrace(string: String) {
@@ -91,10 +77,8 @@ function fromDir(startPath: any, filter: any, callback: any) {
             fromDir(filename, filter, callback); //recurse
         } else if (filename.endsWith(filter)) {
             callback(filename);
-        }
-        ;
-    }
-    ;
+        };
+    };
 };
 
 
