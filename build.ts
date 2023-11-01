@@ -3,20 +3,39 @@ const path = require('node:path');
 const fse = require('fs-extra');
 const cp = require("child_process");
 
-function copyCurrentDirectoryToDist() {
-    const fileName = './src/app/page.tsx';
-    fse.copySync(fileName, fileName + '.original');
+function copyCurrentDirectoryToDist(filePath: string) {
 
-    const content = fse.readFileSync(fileName, "utf8");
-    const splits = content.split(/["']use php["'];/);
+    fse.copySync(filePath, filePath + '.original');
+
+    const content = fse.readFileSync(filePath, "utf8");
+    const isServerActionFile = content.startsWith('\'use server\'');
+
+    const splits = content.split(/'use php'/);
     let result = splits[0];
     for (let i = 1; i < splits.length; i++) {
         const endOfPhpCode = findClosingBrace(splits[i]);
-        const cCode = splits[i].slice(0, endOfPhpCode);
-        result += `return (await (await fetch("/api/use-php", {method: "POST", body: ${JSON.stringify(cCode)}})).json()).message;`;
+        const phpCode = splits[i].slice(0, endOfPhpCode);
+        if (isServerActionFile) {
+            result += `'use server'\n`;
+        }
+        result += `return require('child_process').spawnSync('php', ['-r', \`${phpCode}\`]).stdout.toString()`
         result += splits[i].slice(endOfPhpCode, splits[i].length);
     }
-    fse.writeFileSync(fileName, result, "utf8")
+    fse.writeFileSync(filePath, result, "utf8")
+// }
+// else{
+//     const splits = content.split(/'use php'/);
+//     let result = splits[0];
+//     console.log(result);
+//     for (let i = 1; i < splits.length; i++) {
+//         const endOfPhpCode = findClosingBrace(splits[i]);
+//         const cCode = splits[i].slice(0, endOfPhpCode);
+//         result += `return (await (await fetch("/api/use-php", {method: "POST", body: ${JSON.stringify(cCode)}})).json()).message;`;
+//         result += splits[i].slice(endOfPhpCode, splits[i].length);
+//     }
+//     fse.writeFileSync(filePath, result, "utf8")
+// }
+
 }
 
 function findClosingBrace(string: String) {
@@ -32,28 +51,52 @@ function findClosingBrace(string: String) {
     return null;
 }
 
-function resetToOriginalState() {
+function resetToOriginalState(filePath: string) {
     const path = require('node:path');
     const fse = require('fs-extra');
-    const fileName = './src/app/page.tsx';
-    fse.removeSync(fileName);
-    fse.moveSync(fileName + '.original', fileName);
+    const finalFileName = filePath.replace('.original', '');
+    fse.removeSync(finalFileName);
+    fse.moveSync(filePath, finalFileName);
 }
 
 function build() {
 
-    copyCurrentDirectoryToDist();
+    fromDir(path.join(__dirname, 'src'), '.js', copyCurrentDirectoryToDist);
+    fromDir(path.join(__dirname, 'src'), '.tsx', copyCurrentDirectoryToDist);
+
     try {
         const output = cp.spawnSync('next', ['build']);
         console.log(output.stdout.toString());
-    }
-    catch(e){
+    } catch (e) {
         console.log(e);
-    } finally{
+    } finally {
         console.log('cleanup');
-        resetToOriginalState();
+        fromDir(path.join(__dirname, 'src'), '.js.original', resetToOriginalState);
+        fromDir(path.join(__dirname, 'src'), '.tsx.original', resetToOriginalState);
     }
 }
+
+function fromDir(startPath: any, filter: any, callback: any) {
+
+    if (!fs.existsSync(startPath)) {
+        console.log("no dir ", startPath);
+        return;
+    }
+
+    var files = fs.readdirSync(startPath);
+    for (var i = 0; i < files.length; i++) {
+        var filename = path.join(startPath, files[i]);
+        var stat = fs.lstatSync(filename);
+        if (stat.isDirectory() && filename.startsWith('node_modules') === false && filename.startsWith('.next') === false) {
+            fromDir(filename, filter, callback); //recurse
+        } else if (filename.endsWith(filter)) {
+            callback(filename);
+        }
+        ;
+    }
+    ;
+};
+
 
 build();
 
