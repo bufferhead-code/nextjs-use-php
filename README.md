@@ -23,6 +23,9 @@ npm run start
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+If you want to try out the Database Example, you can use the docker-compose file provided in the repository.
+after `docker-compose up -d` you need to create the database and table you want to insert into manually.
+
 ## Roadmap (Things that should be fixed but realistically it will never happen)
 
 * There is a probably a way to fix that nasty preprocess step with [SWC Plugins]( https://swc.rs/docs/plugin/ecmascript/getting-started) which are still in Beta with Next.js and also I think they will switch builder anyways soon so what's the point really? But hey if anyone wants to do it feel free.
