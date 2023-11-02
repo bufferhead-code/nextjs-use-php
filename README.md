@@ -3,6 +3,8 @@
 Use PHP right inside of your Next.js project. 
 Just like `use server` (not really).
 
+You can use it in React Server Components just like this: 
+
 ```javascript
 return (
     <button
