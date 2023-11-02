@@ -3,7 +3,7 @@
 Use PHP right inside of your Next.js project. 
 Just like `use server` (not really).
 
-You can watch how i made it [here](http://www.youtube.com/watch?v=EGOkjmyfL6E)
+**You can watch how i made it [here](http://www.youtube.com/watch?v=EGOkjmyfL6E)**
 
 [![Youtube Video about how this project was made](http://img.youtube.com/vi/EGOkjmyfL6E/0.jpg)](http://www.youtube.com/watch?v=EGOkjmyfL6E "Write PHP in Next.js/React Components")
 
