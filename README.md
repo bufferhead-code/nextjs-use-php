@@ -4,11 +4,36 @@ Use PHP right inside of your Next.js project.
 Just like `use server` (not really).
 
 ```javascript
-    async function phpHelloWorld(): Promise<string> {
-        "use php";
-        print "Hello from PHP";
-    }
+return (
+    <button
+        formAction={async () => {
+            'use php'
+            (new PDO('mysql:host=localhost:3306;dbname=public', 'root', 'root'))
+                ->prepare("INSERT INTO Bookmarks (slug) VALUES (?)")
+                ->execute(array('new'));
+            }}>
+        Insert Bookmark
+    </button>
+)
 ```
+
+And if you want to it can even work with React Client Components
+
+```javascript
+// actions.js
+'use server'
+
+export async function phpHelloWorld() {
+    'use php'
+    print "Hello from PHP";
+}
+```
+
+```javascript
+// page.tsx
+import {phpHelloWorld} from "../actions";
+```
+
 
 Yes this actually works. Trust me I wish it wouln't too. 
 
@@ -28,7 +53,8 @@ after `docker-compose up -d` you need to create the database and table you want 
 
 ## Roadmap (Things that should be fixed but realistically it will never happen)
 
-* There is a probably a way to fix that nasty preprocess step with [SWC Plugins]( https://swc.rs/docs/plugin/ecmascript/getting-started) which are still in Beta with Next.js and also I think they will switch builder anyways soon so what's the point really? But hey if anyone wants to do it feel free.
+- [ ] There is a probably a way to fix that nasty preprocess step with [SWC Plugins]( https://swc.rs/docs/plugin/ecmascript/getting-started) which are still in Beta with Next.js and also I think they will switch builder anyways soon so what's the point really? But hey if anyone wants to do it feel free.
+- [ ] I guess there is some hacky way to make props binding possible.
 
 ## Credits
 
