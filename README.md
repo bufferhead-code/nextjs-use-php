@@ -72,3 +72,7 @@ Check out the original implementations by elnardu for C and Rust:
 ## Disclaimer
 
 *I hope I don't have to say this but: If you even in the slightest consider to use this in any application at all you are an absolute madperson and and should be locked out of the internet for the rest of your life, I hope you find some other fun activity, maybe gardening or woodwork.* 
+
+## Self-Promo
+
+If you enjoyed this project and want to see more silly web development projects, you can follow me on [Twitter](https://twitter.com/bufferhead_), [Bluesky](https://bsky.app/profile/bufferhead.bsky.social) and [Youtube](https://www.youtube.com/@bufferhead_). 
