@@ -71,4 +71,4 @@ Check out the original implementations by elnardu for C and Rust:
 
 ## Disclaimer
 
-*I hope I don't have to say this but: If you even in the slightest consider to use this in any application at all you are an absolute madman and and should be locked out of the internet for the rest of your life, I hope you find some other fun activity, maybe gardening or woodwork.* 
+*I hope I don't have to say this but: If you even in the slightest consider to use this in any application at all you are an absolute madperson and and should be locked out of the internet for the rest of your life, I hope you find some other fun activity, maybe gardening or woodwork.* 
