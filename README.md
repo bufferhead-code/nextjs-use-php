@@ -41,7 +41,7 @@ import {phpHelloWorld} from "../actions";
 ```
 
 
-Yes this actually works. Trust me I wish it wouln't too. 
+Yes this actually works. Trust me I wish it wouldn't too. 
 
 ## Build 
 
